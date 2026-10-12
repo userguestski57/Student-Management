@@ -1,0 +1,39 @@
+name: DevOps CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-web-app:
+    name: Validate Student Management App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Verify Project Files
+        run: |
+          echo "=== Step 1: Checking required files ==="
+          test -f index.html || (echo "ERROR: index.html not found!" && exit 1)
+          test -f README.md || (echo "ERROR: README.md not found!" && exit 1)
+          echo "Files verified successfully."
+
+      - name: Run Basic HTML & Syntax Validation
+        run: |
+          echo "=== Step 2: Validating Form & Script Elements ==="
+          grep -q 'id="studentForm"' index.html || (echo "ERROR: Missing studentForm element" && exit 1)
+          grep -q 'id="studentList"' index.html || (echo "ERROR: Missing studentList element" && exit 1)
+          grep -q '<script>' index.html || (echo "ERROR: Missing script block" && exit 1)
+          echo "HTML structure and elements validated successfully."
+
+      - name: CI Summary
+        run: |
+          echo "============================================="
+          echo " DevOps CI: All automated checks passed!     "
+          echo " Project: Student Management System          "
+          echo " Platform: GitHub Actions                    "
+          echo "============================================="
