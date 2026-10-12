@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 650px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f4f6f8;
+    }
+    h1 { color: #183153; }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background: #1769aa;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    li { margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>Student Management System</h1>
+  <p>Add and view student records.</p>
+
+  <form id="studentForm">
+    <input id="name" placeholder="Student name" required>
+    <input id="roll" placeholder="Roll number" required>
+    <input id="email" type="email" placeholder="Email address" required>
+    <button type="submit">Add Student</button>
+  </form>
+
+  <h2>Registered Students</h2>
+  <ul id="studentList"></ul>
+
+  <script>
+    const form = document.getElementById("studentForm");
+    const list = document.getElementById("studentList");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const roll = document.getElementById("roll").value.trim();
+      const email = document.getElementById("email").value.trim();
+
+      const item = document.createElement("li");
+      item.textContent = `${name} | ${roll} | ${email}`;
+      list.appendChild(item);
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
